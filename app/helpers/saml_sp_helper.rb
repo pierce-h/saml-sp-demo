@@ -1,0 +1,2 @@
+module SamlSpHelper
+end

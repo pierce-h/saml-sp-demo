@@ -1,0 +1,7 @@
+!!!
+%html
+  %body
+    %h4 SAML Response invalid
+    - if @errors
+      - @errors.each do |error|
+        %p= error
