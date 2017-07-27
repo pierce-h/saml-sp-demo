@@ -6,7 +6,7 @@ class User < ApplicationRecord
     # should retrieve SAML-settings based on subdomain, IP-address, NameID or similar
     settings = OneLogin::RubySaml::Settings.new
 
-    url_base ||= "http://lvh.me:3000"
+    url_base ||= "https://lvh.me:3000"
 
     # Example settings data, replace this values!
 
@@ -19,30 +19,32 @@ class User < ApplicationRecord
     settings.assertion_consumer_logout_service_url = url_base + "/saml/logout"
 
     # IdP section
-    settings.idp_entity_id      = "http://lvh.me:3000/saml/metadata"
-    settings.idp_sso_target_url = "http://lvh.me:3000/saml/auth"
+    settings.idp_entity_id      = "https://accounts.google.com/o/saml2?idpid=C018lh6vi"
+    settings.idp_sso_target_url = "https://accounts.google.com/o/saml2?idpid=C018lh6vi"
     settings.idp_slo_target_url = "http://lvh.me:3000/trust/saml2/http-redirect/slo"
 
-    settings.idp_cert           = "-----BEGIN CERTIFICATE-----
-MIICbjCCAdegAwIBAgIBADANBgkqhkiG9w0BAQ0FADBUMQswCQYDVQQGEwJ1czET
-MBEGA1UECAwKQ2FsaWZvcm5pYTEVMBMGA1UECgwMT25lbG9naW4gSW5jMRkwFwYD
-VQQDDBBhcHAub25lbG9naW4uY29tMB4XDTE0MDkxMTE1MDUxMVoXDTE1MDkxMTE1
-MDUxMVowVDELMAkGA1UEBhMCdXMxEzARBgNVBAgMCkNhbGlmb3JuaWExFTATBgNV
-BAoMDE9uZWxvZ2luIEluYzEZMBcGA1UEAwwQYXBwLm9uZWxvZ2luLmNvbTCBnzAN
-BgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAsezUGLSiNMXg80EZMMzvXH43f07a1plU
-mm1poYvVfgSICTqhEUuA0x4w9w/K4BegO07GVkUjNCrvtJEqq4FMDbHj2VfOCMHx
-lYi52/ELXKe6ALSm48y5BG9fd1kGHBqBg741KpMvDkmAbX1sLq5reAjOccIDme2d
-lLD8tQ8y0IMCAwEAAaNQME4wHQYDVR0OBBYEFP3cLGEyby7TBXweK0SeFrvnRoHL
-MB8GA1UdIwQYMBaAFP3cLGEyby7TBXweK0SeFrvnRoHLMAwGA1UdEwQFMAMBAf8w
-DQYJKoZIhvcNAQENBQADgYEAS3vJKRFGjvxOHHNJR77wYlxSSbyb9vmWOVBzaTMd
-5TFfoSDxuP9RskRjSrez/63WON6tdYr/mJNSNB70ZAic824Y9feQ/kBaCswI+Pgp
-b6sFIh4CrY4yCEkBPD8jXFCeJMq+2AqshbITpiu7WF1RCAp/sRAO56giP/B4l0o0
-Tc0=
+    settings.idp_cert = "-----BEGIN CERTIFICATE-----
+MIIDdDCCAlygAwIBAgIGAV2FywwcMA0GCSqGSIb3DQEBCwUAMHsxFDASBgNVBAoTC0dvb2dsZSBJ
+bmMuMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MQ8wDQYDVQQDEwZHb29nbGUxGDAWBgNVBAsTD0dv
+b2dsZSBGb3IgV29yazELMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWEwHhcNMTcwNzI3
+MjA0NDIwWhcNMjIwNzI2MjA0NDIwWjB7MRQwEgYDVQQKEwtHb29nbGUgSW5jLjEWMBQGA1UEBxMN
+TW91bnRhaW4gVmlldzEPMA0GA1UEAxMGR29vZ2xlMRgwFgYDVQQLEw9Hb29nbGUgRm9yIFdvcmsx
+CzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A
+MIIBCgKCAQEAwz4atOTnT1fVnf10V692G3xCLMLwfndQ4FYY8ZjN15NXwwA2UQHuES2eh4szH72Z
+w9xKItXtSrfeWpLB0qllz2ZErz7nsoMaPogG76wzIGxwHuM1bpyg34bOLDhPfeXRcUOBsO4bay+Q
+f39l93a19GF35bPxdspRpTTQXPcsuOzNAeQR1TFjcX3Pb6wFWTj+Tp7vqGetB3FUj6aTj0m0gN+o
+JbiyyMyECbzxdEPVj+l+IstfSuZWjJKA5qinDFSoUxyvtPJDGJHx/yuypE8MMN3hcCBN7frJ40Oh
+vIDDqrnxp0UbzKihP+2KDpNSt6EGDpRpJdUGyvHCh3r47yTqbwIDAQABMA0GCSqGSIb3DQEBCwUA
+A4IBAQBGCYsDyTTk2P1V6pFceCOQnA5maloCKvG4Lut5z32sM3UFsb61//3LJdehvC4qf//seR2v
+x/afL9aT7WKr58OMxqOJjRSEIOIue5HW54sLyPFo7fHqWYIzH6sTe1YjwCSG+jt6c8Xzq+HbL/Yu
+GVyb5qWp2Wh+5SqIUFIUqAnoo3BXKGKniIJsyKFoYQZHd1/ab5czsjCQhN6ZVUQL9BQ4Ld0CaYwZ
+RmVSi94UKFzaRIZo1a2mbMsm6cwXCSZwaLYzcfOujszedg8Do67t4qZSXFE2zLEFCMnvHBC2fLXf
++osbK+sXPZxUkDm6kNQtQ7+7hYxjMp6Lu78sSnmHUYsh
 -----END CERTIFICATE-----"
     # or settings.idp_cert_fingerprint           = "3B:05:BE:0A:EC:84:CC:D4:75:97:B3:A2:22:AC:56:21:44:EF:59:E6"
     #    settings.idp_cert_fingerprint_algorithm = XMLSecurity::Document::SHA1
 
-    settings.name_identifier_format = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+    settings.name_identifier_format = "urn:oasis:names:tc:SAML:2.0:nameid-format:transient"
 
     # Security section
     settings.security[:authn_requests_signed]   = false
@@ -53,9 +55,5 @@ Tc0=
     settings.security[:signature_method]        = XMLSecurity::Document::RSA_SHA1
 
     settings
-  end
-
-  def authenticate(unencrypted_password)
-    encrypted_password == password_digest(unencrypted_password)
   end
 end
