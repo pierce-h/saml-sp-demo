@@ -14,15 +14,15 @@ class User < ApplicationRecord
     settings.soft = true
 
     #SP section
-    settings.issuer                         = url_base + "/saml/metadata"
-    settings.assertion_consumer_service_url = url_base + "/saml/acs"
+    settings.issuer                                = url_base + "/saml/metadata"
+    settings.assertion_consumer_service_url        = url_base + "/saml/acs"
     settings.assertion_consumer_logout_service_url = url_base + "/saml/logout"
 
     # IdP section
-    settings.idp_entity_id                  = "https://app.onelogin.com/saml/metadata/<onelogin-app-id>"
-    settings.idp_sso_target_url             = "https://app.onelogin.com/trust/saml2/http-post/sso/<onelogin-app-id>"
-    settings.idp_slo_target_url             = "https://app.onelogin.com/trust/saml2/http-redirect/slo/<onelogin-app-id>"
-    settings.idp_cert                       = "-----BEGIN CERTIFICATE-----
+    settings.idp_entity_id      = "https://lvh.me:3000/saml/metadata/<onelogin-app-id>"
+    settings.idp_sso_target_url = "https://lvh.me:3000/trust/saml2/http-post/sso/<onelogin-app-id>"
+    settings.idp_slo_target_url = "https://lvh.me:3000/trust/saml2/http-redirect/slo/<onelogin-app-id>"
+    settings.idp_cert           = "-----BEGIN CERTIFICATE-----
 MIICbjCCAdegAwIBAgIBADANBgkqhkiG9w0BAQ0FADBUMQswCQYDVQQGEwJ1czET
 MBEGA1UECAwKQ2FsaWZvcm5pYTEVMBMGA1UECgwMT25lbG9naW4gSW5jMRkwFwYD
 VQQDDBBhcHAub25lbG9naW4uY29tMB4XDTE0MDkxMTE1MDUxMVoXDTE1MDkxMTE1
@@ -41,15 +41,15 @@ Tc0=
     # or settings.idp_cert_fingerprint           = "3B:05:BE:0A:EC:84:CC:D4:75:97:B3:A2:22:AC:56:21:44:EF:59:E6"
     #    settings.idp_cert_fingerprint_algorithm = XMLSecurity::Document::SHA1
 
-    settings.name_identifier_format         = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+    settings.name_identifier_format = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
 
     # Security section
-    settings.security[:authn_requests_signed] = false
-    settings.security[:logout_requests_signed] = false
+    settings.security[:authn_requests_signed]   = false
+    settings.security[:logout_requests_signed]  = false
     settings.security[:logout_responses_signed] = false
-    settings.security[:metadata_signed] = false
-    settings.security[:digest_method] = XMLSecurity::Document::SHA1
-    settings.security[:signature_method] = XMLSecurity::Document::RSA_SHA1
+    settings.security[:metadata_signed]         = false
+    settings.security[:digest_method]           = XMLSecurity::Document::SHA1
+    settings.security[:signature_method]        = XMLSecurity::Document::RSA_SHA1
 
     settings
   end

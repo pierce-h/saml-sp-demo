@@ -16,7 +16,9 @@
                 %ul
                   - attr_value.each do |val|
                     %li= val
-  %p= link_to "Logout", :action => "logout"
-  %p= link_to "Single Logout", :action => "logout", :slo => '1'
+
+  %p= link_to "Logout", action: "logout"
+  %p= link_to "Single Logout", action: "logout", slo: "1"
+
 - else
   %p= link_to "Login", :action=>"sso"
