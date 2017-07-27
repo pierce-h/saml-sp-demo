@@ -51,8 +51,8 @@ RmVSi94UKFzaRIZo1a2mbMsm6cwXCSZwaLYzcfOujszedg8Do67t4qZSXFE2zLEFCMnvHBC2fLXf
     settings.security[:logout_requests_signed]  = false
     settings.security[:logout_responses_signed] = false
     settings.security[:metadata_signed]         = false
-    settings.security[:digest_method]           = XMLSecurity::Document::SHA1
-    settings.security[:signature_method]        = XMLSecurity::Document::RSA_SHA1
+    settings.security[:digest_method]           = XMLSecurity::Document::SHA256
+    settings.security[:signature_method]        = XMLSecurity::Document::RSA_SHA256
 
     settings
   end
