@@ -20,7 +20,7 @@ class User < ApplicationRecord
 
     # IdP section
     settings.idp_entity_id      = "https://accounts.google.com/o/saml2?idpid=C018lh6vi"
-    settings.idp_sso_target_url = "https://accounts.google.com/o/saml2?idpid=C018lh6vi"
+    settings.idp_sso_target_url = "https://accounts.google.com/o/saml2/idp?idpid=C018lh6vi"
     settings.idp_slo_target_url = "http://lvh.me:3000/trust/saml2/http-redirect/slo"
 
     settings.idp_cert = "-----BEGIN CERTIFICATE-----
