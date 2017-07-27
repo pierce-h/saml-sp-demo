@@ -6,7 +6,7 @@ class User < ApplicationRecord
     # should retrieve SAML-settings based on subdomain, IP-address, NameID or similar
     settings = OneLogin::RubySaml::Settings.new
 
-    url_base ||= "http://localhost:3000"
+    url_base ||= "http://lvh.me:3000"
 
     # Example settings data, replace this values!
 
@@ -19,9 +19,10 @@ class User < ApplicationRecord
     settings.assertion_consumer_logout_service_url = url_base + "/saml/logout"
 
     # IdP section
-    settings.idp_entity_id      = "https://lvh.me:3000/saml/metadata/<onelogin-app-id>"
-    settings.idp_sso_target_url = "https://lvh.me:3000/trust/saml2/http-post/sso/<onelogin-app-id>"
-    settings.idp_slo_target_url = "https://lvh.me:3000/trust/saml2/http-redirect/slo/<onelogin-app-id>"
+    settings.idp_entity_id      = "http://lvh.me:3000/saml/metadata"
+    settings.idp_sso_target_url = "http://lvh.me:3000/saml/auth"
+    settings.idp_slo_target_url = "http://lvh.me:3000/trust/saml2/http-redirect/slo"
+
     settings.idp_cert           = "-----BEGIN CERTIFICATE-----
 MIICbjCCAdegAwIBAgIBADANBgkqhkiG9w0BAQ0FADBUMQswCQYDVQQGEwJ1czET
 MBEGA1UECAwKQ2FsaWZvcm5pYTEVMBMGA1UECgwMT25lbG9naW4gSW5jMRkwFwYD
@@ -52,5 +53,9 @@ Tc0=
     settings.security[:signature_method]        = XMLSecurity::Document::RSA_SHA1
 
     settings
+  end
+
+  def authenticate(unencrypted_password)
+    encrypted_password == password_digest(unencrypted_password)
   end
 end

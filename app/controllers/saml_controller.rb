@@ -7,13 +7,15 @@ class SamlController < ApplicationController
 
   def sso
     settings = User.get_saml_settings(get_url_base)
-    if settings.nil?
-      render action: :no_settings
-      return
-    end
-    debugger
-    request = OneLogin::RubySaml::Authrequest.new
-    redirect_to(request.create(settings))
+
+    return render action: :no_settings if settings.nil?
+
+    redirect_url = OneLogin::RubySaml::Authrequest.new.create(settings)
+
+    puts "=> Redirecting..."
+    puts redirect_url.to_s
+
+    redirect_to redirect_url
   end
 
   def acs
