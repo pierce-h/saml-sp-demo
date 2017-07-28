@@ -7,7 +7,7 @@ class SamlController < ApplicationController
   # end
 
   # def sso
-  #   settings = User.get_saml_settings(get_url_base)
+  #   settings = User.get_saml_settings
 
   #   return render action: :no_settings if settings.nil?
 
@@ -20,7 +20,7 @@ class SamlController < ApplicationController
   # end
 
   def acs
-    settings = User.get_saml_settings(get_url_base)
+    settings = User.get_saml_settings
     response = OneLogin::RubySaml::Response.new(params[:SAMLResponse], settings: settings)
 
     if response.is_valid?

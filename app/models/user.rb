@@ -1,31 +1,22 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :trackable, :validatable
 
-  def self.get_saml_settings(url_base)
-    # this is just for testing purposes.
-    # should retrieve SAML-settings based on subdomain, IP-address, NameID or similar
+  def self.get_saml_settings
     settings = OneLogin::RubySaml::Settings.new
-
-    url_base ||= "https://lvh.me:3000"
-
-    # Example settings data, replace this values!
 
     # When disabled, saml validation errors will raise an exception.
     settings.soft = true
 
-    #SP section
-    settings.issuer                                = url_base + "/saml/metadata"
-    settings.assertion_consumer_service_url        = url_base + "/saml/acs"
-    settings.assertion_consumer_logout_service_url = url_base + "/saml/logout"
+    # SP section (Chiron)
+    service_provider_base_url                      = "https://lvh.me:3000"
+    settings.issuer                                = service_provider_base_url + "/saml/metadata"
+    settings.assertion_consumer_service_url        = service_provider_base_url + "/saml/assertion-consumer-service"
+    settings.assertion_consumer_logout_service_url = service_provider_base_url + "/saml/logout"
 
-    # IdP section
-    settings.idp_entity_id      = "https://lvh.me:3000/o/saml2?idpid=C018lh6vi"
-    settings.idp_sso_target_url = "https://lvh.me:3000/o/saml2/idp?idpid=C018lh6vi"
-    settings.idp_slo_target_url = "https://lvh.me:3000/trust/saml2/http-redirect/slo"
-
-    settings.idp_entity_id      = "http://lvh.me:3000/saml/metadata"
-    settings.idp_sso_target_url = "http://lvh.me:3000/saml/auth"
-    settings.idp_slo_target_url = "http://lvh.me:3000/trust/saml2/http-redirect/slo"
+    # IdP section (CareCloud)
+    # settings.idp_entity_id      = ""
+    # settings.idp_sso_target_url = ""
+    # settings.idp_slo_target_url = ""
 
     settings.idp_cert = "-----BEGIN CERTIFICATE-----
 MIIFfDCCBGSgAwIBAgIRAIuH/RhtJd4H1IFfqA9keOwwDQYJKoZIhvcNAQELBQAw
@@ -126,8 +117,6 @@ j4rBYKEMrltDR5FL1ZoXX/nUh8HCjLfn4g8wGTeGrODcQgPmlKidrv0PJFGUzpII
 lBlGGSW4gNfL1IYoakRwJiNiqZ+Gb7+6kHDSVneFeO/qJakXzlByjAA6quPbYzSf
 +AZxAeKCINT+b72x
 -----END CERTIFICATE-----"
-    # or settings.idp_cert_fingerprint           = "4C:56:82:76:C3:8A:2E:43:EA:2C:5A:C9:FD:5D:DA:DC:79:9E:1C:55"
-    #    settings.idp_cert_fingerprint_algorithm = XMLSecurity::Document::SHA1
 
     settings.name_identifier_format = "urn:oasis:names:tc:SAML:2.0:nameid-format:transient"
 
@@ -136,8 +125,8 @@ lBlGGSW4gNfL1IYoakRwJiNiqZ+Gb7+6kHDSVneFeO/qJakXzlByjAA6quPbYzSf
     settings.security[:logout_requests_signed]  = false
     settings.security[:logout_responses_signed] = false
     settings.security[:metadata_signed]         = false
-    settings.security[:digest_method]           = XMLSecurity::Document::SHA256
-    settings.security[:signature_method]        = XMLSecurity::Document::RSA_SHA256
+    settings.security[:digest_method]           = XMLSecurity::Document::SHA1
+    settings.security[:signature_method]        = XMLSecurity::Document::RSA_SHA1
 
     settings
   end
