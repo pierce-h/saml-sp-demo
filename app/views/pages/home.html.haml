@@ -1,24 +1,24 @@
 %h1 Pages#home
 %p Awesome service that is protected by authentication.
 
-- if session[:nameid].present?
-  %p
-    NameID: #{session[:nameid]}
-  - if @attrs.any?
-    %p Received the following attributes in the SAML Response:
-    %table
-      %thead
-        %th Name
-        %th Values
-      %tbody
-        - @attrs.each do |key,attr_value|
-          %tr
-            %td= key
-            %td
-              - if attr_value.any?
-                %ul
-                  - attr_value.each do |val|
-                    %li= val
+/ - if session[:nameid].present?
+/   %p
+/     NameID: #{session[:nameid]}
+/   - if @attrs.any?
+/     %p Received the following attributes in the SAML Response:
+/     %table
+/       %thead
+/         %th Name
+/         %th Values
+/       %tbody
+/         - @attrs.each do |key,attr_value|
+/           %tr
+/             %td= key
+/             %td
+/               - if attr_value.any?
+/                 %ul
+/                   - attr_value.each do |val|
+/                     %li= val
 
-  %p= link_to "Logout", action: "logout"
-  %p= link_to "Single Logout", action: "logout", slo: "1"
+/   %p= link_to "Logout", action: "logout"
+/   %p= link_to "Single Logout", action: "logout", slo: "1"
